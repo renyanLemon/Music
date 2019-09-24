@@ -5,3 +5,9 @@
     </swiper-item>
   </block>
 </swiper>
+
+<view class="musiclist">
+  <block wx:for="{{musiclist}}" wx:key="{{index}}">
+    <m-musiclist musiclist="{{item}}"></m-musiclist>
+  </block>
+</view>
