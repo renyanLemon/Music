@@ -57,3 +57,45 @@
 ```
 import regeneratorRuntime from '../../utils/runtime.js'
 ```
+
+
+
+### Request-Promise
+
+This module is installed via npm:
+```
+npm install --save request
+npm install --save request-promise
+```
+
+```
+const rp = require('request-promise');
+```
+
+
+
+### 云数据库
+云数据库插入只能单条插入
+
+
+初始化数据库
+```
+const db = cloud.database()
+```
+
+插入数据库
+```
+db.collection('musiclist').add()
+```
+
+### 突破获取数据条数的限制
+```
+db.collection('musiclist').get()
+```
+ 在云函数中获取，最多每次只能获取100条数据
+ 在小程序端获取，最多每次只能获取20条数据
+
+
+
+
+### 定时触发器 
