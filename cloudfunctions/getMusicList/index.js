@@ -12,7 +12,7 @@ const musiclistCollection = db.collection('musiclist')
 const URL = 'http://musicapi.xiecheng.live/personalized'
 
 //定义每次取得数量
-const MAX_LIMIT = 10
+const MAX_LIMIT = 100
 
 // 云函数入口函数
 exports.main = async (event, context) => {
