@@ -119,3 +119,13 @@ db.collection('musiclist').get()
 一个用户在一个云环境中只能创建50个云函数
 相似的请求归类到同一个云函数中处理
 tcb-router是一个koa风格的云函数路由库
+
+
+
+### 本地存储
+```
+wx.setStorageSync(key, value)
+```
+```
+wx.setStorage(key, value)
+```

@@ -1,2 +1,9 @@
-<!--pages/player/player.wxml-->
-<text>pages/player/player.wxml</text>
+
+<!-- 高斯模糊背景 -->
+<view class="player-container" style="background:url({{picUrl}}) center/cover no-repeat"></view>
+<view class="player-mask"></view>
+
+<!-- 唱片 -->
+<view class="player-disc">
+  <image class="player-img" src="{{picUrl}}"></image>
+</view>
