@@ -7,17 +7,18 @@ Component({
     songslist: Array
   },
 
-  /**
-   * 组件的初始数据
-   */
   data: {
-
+    playingId: -1
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-
+    onSelect(event) {
+      this.setData({
+        playingId: event.currentTarget.dataset.musicid
+      })
+    }
   }
 })
