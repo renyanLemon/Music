@@ -11,6 +11,8 @@
 	"appid": "wx82d31014e0ee5889",
 	"projectname": "music",
 	"libVersion": "2.8.3",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
