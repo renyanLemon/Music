@@ -28,6 +28,13 @@ Component({
   },
 
   methods: {
+    //点击歌单跳转歌单列表
+    goToMusiclist() {
+      wx.navigateTo({
+        url: `../../pages/songslist/songslist?musiclistId=${this.properties.musiclist.id}`,
+      })
+    },
+    //
     _tranNumber(num,point) {
       let numStr = num.toString().split('.')[0]
       if(numStr.length < 6) {
