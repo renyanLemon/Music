@@ -129,3 +129,16 @@ wx.setStorageSync(key, value)
 ```
 wx.setStorage(key, value)
 ```
+
+
+
+### 引入iconfont图标
+
+
+
+### 播放音乐
+
+获取全局位移的背景音频管理器
+```
+wx.getBackgroundAudioManager()
+```

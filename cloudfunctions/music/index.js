@@ -35,5 +35,13 @@ exports.main = async (event, context) => {
     })
   });
 
+  //音乐控制面板
+  app.router('songUrl', async(ctx, next) => {
+    ctx.body = await rp(`${BASE_URL}/song/url?id=${event.songId}`)
+    .then((res) => {
+      return res
+    })
+  })
+
   return app.serve()
 }
