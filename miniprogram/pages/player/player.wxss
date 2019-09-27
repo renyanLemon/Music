@@ -77,14 +77,15 @@
   color: #fefefe;
 }
 
-.icon-shangyishoushangyige, .icon-xiayigexiayishou {
+.icon-047caozuo_shangyishou, .icon-048caozuo_xiayishou {
   font-size: 80rpx;
 }
 
-.icon-bofang1, .icon-zanting1 {
+.icon-kaishi, .icon-zhongzhi {
   font-size: 120rpx;
   margin: 0 50rpx;
 }
+
 .rotation {
   animation: rotation 12s linear infinite;
   -moz-animation: rotation 12s linear infinite;
@@ -92,6 +93,7 @@
   -o-animation: rotation 12s linear infinite;
 }
 
+/* 定在当前旋转的那一桢 */
 .rotation-paused {
   animation-play-state: paused;
 }
