@@ -10,8 +10,14 @@
   </view>
 </view>
 
+<!-- 进度条 -->
+<view class="progress-bar">
+  <m-progress-bar/>
+</view>
 
-<!-- 播放 -->
+
+
+<!-- 控制面板 -->
 <view class="control">
   <text class="iconfont icon-047caozuo_shangyishou" bind:tap="onPrev"></text>
   <text class="iconfont {{isPlaying?'icon-zhongzhi':'icon-kaishi'}}" bind:tap="togglePlaying"></text>
