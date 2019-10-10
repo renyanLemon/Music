@@ -12,7 +12,9 @@ Page({
 
   data: {
     picUrl: '',
-    isPlaying: false
+    isPlaying: false,
+    isLyricShow: false, //表示当前歌词是否显示
+    lyric: ''
   },
 
   onLoad: function (options) {
@@ -55,6 +57,29 @@ Page({
       this.setData({
         isPlaying: true
       })
+
+      //加载歌词
+      wx.cloud.callFunction({
+        name: 'music',
+        data: {
+          songId,
+          $url: 'lyric'
+        }
+      }).then((res) => {
+        const lrc = JSON.parse(res.result).lrc
+        if(lrc) {
+          this.setData({
+            lyric: lrc.lyric
+          })
+        }else {
+          this.setData({
+            lyric: '暂无歌词呢'
+          })
+        }
+        
+      })
+
+
     })
   },
 
@@ -83,6 +108,18 @@ Page({
       nowPlayingIndex = 0
     }
     this._loadSongsDetail(songslist[nowPlayingIndex].id)
+  },
+
+  //控制歌词是否显示
+  onChangeLyricsShow() {
+    this.setData({
+      isLyricShow: !this.data.isLyricShow
+    })
+  },
+
+  // 将时间传入歌词组件
+  timeUpdate(event) {
+    this.selectComponent('.lyric').updata(event.detail.currentTime)
   }
 
 

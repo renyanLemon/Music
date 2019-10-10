@@ -142,3 +142,93 @@ wx.setStorage(key, value)
 ```
 wx.getBackgroundAudioManager()
 ```
+
+
+
+### 组件间传值
+需求：歌词与播放歌曲同步
+自定义事件  triggerEvent()
+
+progress-bar组件 传值currentTime  到 lyric组件
+
+progress-bar组件
+```
+this.triggerEvent('timeUpdate', {
+    currentTime
+  })
+```
+
+player组件（该组件调用progress-bar）
+player.wxml
+```
+<!-- 歌词 -->
+<m-lyric class="lyric"/>
+
+<!-- 进度条 -->
+<view class="progress-bar">
+  <m-progress-bar bind:timeUpdate="timeUpdate"/>
+</view>
+```
+
+player.js
+根据类名获取组件
+```
+timeUpdate(event) {
+    this.selectComponent('.lyric').updata(event.detail.currentTime)
+  }
+```
+lyric组件
+```
+updata(currentTime) {
+
+    }
+```
+
+
+
+
+### 组件的生命周期
+```
+lifetimes: {
+  ready() {
+
+  }
+}
+```
+
+### 歌词随着播放移动
+lyric.js
+```
+lifetimes: {
+    ready() {
+      //获取当前设备信息
+      wx.getSystemInfo({
+        success(res) {
+          //res.screenWidth / 750  求出1rpx大小
+          //res.screenWidth / 750 * 64  一行歌词所对应的高度（css里设置了一行歌词64rpx）
+          lyricHeight = res.screenWidth / 750 * 64
+        }
+      })
+    }
+  },
+
+  //scrollTop scroll-view组件滚动高度
+  methods: {
+    //接收进度条组件传过来的时间
+    updata(currentTime) {
+      let lrcList = this.data.lrcList
+      if (lrcList.length == 0) {
+        return
+      }
+      for(let i=0; i<lrcList.length; i++) {
+        if (currentTime <= lrcList[i].time) {
+          this.setData({
+            nowLyricIndex: i-1,
+            scrollTop: (i - 1) * lyricHeight
+          })
+          break
+        }
+      }
+    },
+ }
+```
