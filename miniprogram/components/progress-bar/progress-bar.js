@@ -120,6 +120,10 @@ Component({
               progress: currentTime / duration * 100,
               ['showTime.currentTime']: `${currentTimeFmt.min}:${currentTimeFmt.sec}`
             })
+            //联动歌词
+            this.triggerEvent('timeUpdate', {
+              currentTime
+            })
           }
         }    
       })
