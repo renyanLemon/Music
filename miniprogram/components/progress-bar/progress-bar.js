@@ -8,6 +8,9 @@ const backgroundAudioManager = wx.getBackgroundAudioManager()
 let currentSec = -1
 //当前歌曲总时长
 let duration = 0
+//优化：解决当前进度条拖拽时候和updatatime事件有冲突的问题（进度条滑块乱跳)
+//当前进度条是否在拖拽 
+let isMoving = false
 Component({
   
   properties: {
@@ -37,6 +40,8 @@ Component({
       if (event.detail.source === 'touch') {
         this.data.progress = event.detail.x / (movableAreaWidth - movableViewWidth) * 100
         this.data.movableDis = event.detail.x
+        //当前在拖拽
+        isMoving = true
       }
     },
 
@@ -51,6 +56,7 @@ Component({
       //backgroundAudioManager.seek 音乐播放的当前时长
       //播放进度百分比 * 总时长 / 100
       backgroundAudioManager.seek(this.data.progress * duration / 100)
+      isMoving = false
     },
     _getMovableDis() {
       //获取当前界面进度条总长度
@@ -69,6 +75,7 @@ Component({
       //播放
       backgroundAudioManager.onPlay(() => {
         console.log('onPlay')
+        isMoving = false
       })
       //停止播放
       backgroundAudioManager.onStop(() => {
@@ -100,24 +107,27 @@ Component({
       //播放进度
       backgroundAudioManager.onTimeUpdate(() => {
         console.log('onTimeUpdate')
-        //backgroundAudioManager.currentTime  当前播放时间
-        const currentTime = backgroundAudioManager.currentTime
-        //优化，一秒设置一次界面当前时间
-        if (currentTime.toString().split('.')[0] != currentSec) {
-          currentSec = currentTime.toString().split('.')[0]
-          const currentTimeFmt = this._dataFormat(backgroundAudioManager.currentTime)
-          const duration = backgroundAudioManager.duration
-          this.setData({
-            movableDis: (movableAreaWidth - movableViewWidth) * currentTime / duration,
-            progress: currentTime / duration * 100,
-            ['showTime.currentTime']: `${currentTimeFmt.min}:${currentTimeFmt.sec}`
-          })
-        }
-        
+        if(!isMoving) {
+          //backgroundAudioManager.currentTime  当前播放时间
+          const currentTime = backgroundAudioManager.currentTime
+          //优化，一秒设置一次界面当前时间
+          if (currentTime.toString().split('.')[0] != currentSec) {
+            currentSec = currentTime.toString().split('.')[0]
+            const currentTimeFmt = this._dataFormat(backgroundAudioManager.currentTime)
+            const duration = backgroundAudioManager.duration
+            this.setData({
+              movableDis: (movableAreaWidth - movableViewWidth) * currentTime / duration,
+              progress: currentTime / duration * 100,
+              ['showTime.currentTime']: `${currentTimeFmt.min}:${currentTimeFmt.sec}`
+            })
+          }
+        }    
       })
       //播放结束
       backgroundAudioManager.onEnded(() => {
         console.log('onEnded')
+        //自动播放下一首 自定义事件
+        this.triggerEvent('musicEnd')
       })
       //播放错误
       backgroundAudioManager.onError(() => {
