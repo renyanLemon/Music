@@ -2,12 +2,14 @@
 Page({
 
   data: {
-
+    modalShow: false,  //底部弹出层是否显示
   },
 
   //发布
   onPublish() {
-
+    this.setData({
+      modalShow: true
+    }) 
   },
 
   /**

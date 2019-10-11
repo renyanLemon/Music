@@ -274,3 +274,6 @@ app.setPlayMusicId(songId)
 ### 组件样式隔离
 在search组件中，无法调用全局的icon图标
 解决，将图标文件放在组件内部
+
+
+### slot插槽  具名插槽

@@ -1,4 +1,5 @@
 <view class="container">
+
 <!-- 头部 -->
 <view class="header">
   <view class="publish-container" bind:tap="onPublish">
@@ -8,5 +9,8 @@
     <m-search />
   </view>
 </view>
+
+<!-- 底部弹出层 -->
+<m-bottom-modal modalShow="{{modalShow}}"/>
 
 </view>
