@@ -1,10 +1,12 @@
-// pages/blog/blog.js
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
+
+  },
+
+  //发布
+  onPublish() {
 
   },
 
