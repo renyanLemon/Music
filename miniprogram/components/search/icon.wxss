@@ -15,26 +15,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-047caozuo_shangyishou:before {
-  content: "\e61f";
-}
-
-.icon-048caozuo_xiayishou:before {
-  content: "\e624";
-}
-
 .icon-sousuo:before {
   content: "\e643";
 }
 
-.icon-fabu:before {
-  content: "\e661";
-}
-
-.icon-zhongzhi:before {
-  content: "\e60c";
-}
-
-.icon-kaishi:before {
-  content: "\e60d";
-}
