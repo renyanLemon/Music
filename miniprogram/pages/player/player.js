@@ -8,13 +8,17 @@ let nowPlayingIndex = 0
 //获取全局唯一的背景音频管理器
 const backgroundAudioManager = wx.getBackgroundAudioManager()
 
+//调用全局属性和方法
+const app = getApp()
+
 Page({
 
   data: {
     picUrl: '',
     isPlaying: false,
     isLyricShow: false, //表示当前歌词是否显示
-    lyric: ''
+    lyric: '',
+    isSame: false, //表示是否为同一首歌曲
   },
 
   onLoad: function (options) {
@@ -25,7 +29,22 @@ Page({
   },
 
   _loadSongsDetail(songId) {
-    backgroundAudioManager.stop()
+    //判断是否是同一首歌曲
+    if (songId == app.getPlayMusicId()) {
+      this.setData({
+        isSame: true
+      })
+    }else {
+      this.setData({
+        isSame: false
+      })
+    }
+
+    //如果不是同一首歌曲
+    if(!this.data.isSame) {
+      backgroundAudioManager.stop()
+    }
+    
     let songs = songslist[nowPlayingIndex]
     //将歌曲名称展示在tabbar
     wx.setNavigationBarTitle({
@@ -34,6 +53,9 @@ Page({
     this.setData({
       picUrl: songs.al.picUrl
     })
+
+    //设置当前播放歌曲id为全局
+    app.setPlayMusicId(songId)
     
     wx.showLoading({
       title: '加载中',
@@ -48,11 +70,20 @@ Page({
     }).then((res) => {
       wx.hideLoading()
       let result = JSON.parse(res.result)
-      backgroundAudioManager.src = result.data[0].url
-      backgroundAudioManager.title = songs.name
-      backgroundAudioManager.coverImgUrl = songs.al.picUrl
-      backgroundAudioManager.singer = songs.ar[0].name
-      backgroundAudioManager.epname = songs.al.name
+      if (result.data[0].url == null) {
+        wx.showToast({
+          title: '无权限播放',
+        })
+        return
+      }
+      //如果不是同一首歌曲
+      if (!this.data.isSame) {
+        backgroundAudioManager.src = result.data[0].url
+        backgroundAudioManager.title = songs.name
+        backgroundAudioManager.coverImgUrl = songs.al.picUrl
+        backgroundAudioManager.singer = songs.ar[0].name
+        backgroundAudioManager.epname = songs.al.name
+      }
 
       this.setData({
         isPlaying: true
@@ -120,6 +151,20 @@ Page({
   // 将时间传入歌词组件
   timeUpdate(event) {
     this.selectComponent('.lyric').updata(event.detail.currentTime)
+  },
+
+  //播放
+  onPlay() {
+    this.setData({
+      isPlaying: true
+    })
+  },
+
+  //暂停
+  onPause() {
+    this.setData({
+      isPlaying: false
+    })
   }
 
 
