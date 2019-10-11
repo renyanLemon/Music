@@ -196,6 +196,8 @@ lifetimes: {
 }
 ```
 
+
+
 ### 歌词随着播放移动
 lyric.js
 ```
@@ -231,4 +233,38 @@ lifetimes: {
       }
     },
  }
+```
+
+
+
+### 小程序设置全局属性
+app.js
+```
+App({
+  onLaunch: function () {
+    //全局变量
+    this.globalData = {
+      //当前播放的歌曲id
+      playingMusicId: -1
+    }
+  },
+
+  //设置playingMusicId
+  setPlayMusicId(musicId) {
+    this.globalData.playingMusicId = musicId
+  },
+
+  //获取playingMusicId
+  getPlayMusicId(musicId) {
+    return this.globalData.playingMusicId
+  }
+```
+
+player.js
+```
+//调用全局属性和方法
+const app = getApp()
+
+//设置当前播放歌曲id为全局
+app.setPlayMusicId(songId)
 ```

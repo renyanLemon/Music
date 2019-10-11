@@ -1,3 +1,5 @@
+//调用全局属性和方法
+const app = getApp()
 
 Component({
   /**
@@ -11,9 +13,14 @@ Component({
     playingId: -1
   },
 
-  /**
-   * 组件的方法列表
-   */
+  pageLifetimes: {
+    show() {
+      this.setData({
+        playingId: parseInt(app.getPlayMusicId())
+      })
+    }
+  },
+
   methods: {
     onSelect(event) {
       const dataset = event.currentTarget.dataset

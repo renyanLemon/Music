@@ -14,7 +14,7 @@ let isMoving = false
 Component({
   
   properties: {
-
+    isSame: Boolean
   },
 
   data: {
@@ -29,6 +29,9 @@ Component({
   //ready()组件在页面上布局完以后执行
   lifetimes: {
     ready() {
+      if (this.properties.isSame && this.data.showTime.totalTime === '00:00') {
+        this._setTime()
+      }
       this._getMovableDis()
       this._bindBGMEvent()
     }
@@ -76,6 +79,8 @@ Component({
       backgroundAudioManager.onPlay(() => {
         console.log('onPlay')
         isMoving = false
+        //控制面板（手机自带播放）联动组件播放按钮
+        this.triggerEvent('musicPlay')
       })
       //停止播放
       backgroundAudioManager.onStop(() => {
@@ -84,6 +89,8 @@ Component({
       //暂停
       backgroundAudioManager.onPause(() => {
         console.log('onPause')
+        //控制面板（手机自带播放）联动组件播放按钮
+        this.triggerEvent('musicPause')
       })
       //监听音频正在加载
       backgroundAudioManager.onWaiting(() => {
