@@ -1,7 +1,7 @@
 {
   "usingComponents": {
     "m-search": "/components/search/search",
-    "m-bottom-modal": "/components/bottom-modal/bottom-modal"
+    "m-login": "/components/login/login"
   },
   "navigationBarTitleText": "发 现"
 }

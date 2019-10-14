@@ -11,6 +11,6 @@
 </view>
 
 <!-- 底部弹出层 -->
-<m-bottom-modal modalShow="{{modalShow}}"/>
+<m-login modalShow="{{modalShow}}" bind:loginsuccess="onLoginSuccess" bind:loginfail="onLoginFail"></m-login>
 
 </view>
