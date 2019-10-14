@@ -280,4 +280,19 @@ app.setPlayMusicId(songId)
 
 
 
-### 判断用户是否授权
+### 用户授权
+小程序为button提供的开放功能
+```
+<button open-type="getUserInfo" bindgetuserinfo="ongetUserInfo">获取微信授权信息</button>
+```
+```
+ongetUserInfo(event) {
+  const userInfo = event.detail.userInfo
+  if (userInfo) {
+    //允许授权
+
+  }else {
+    
+  }
+}
+```
