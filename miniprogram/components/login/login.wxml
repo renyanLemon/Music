@@ -1,0 +1,6 @@
+
+<m-bottom-modal modalShow="{{modalShow}}">
+  <view>
+    <button open-type="getUserInfo" bindgetuserinfo="ongetUserInfo" class="login">获取微信授权信息</button>
+  </view>
+</m-bottom-modal>

@@ -277,3 +277,7 @@ app.setPlayMusicId(songId)
 
 
 ### slot插槽  具名插槽
+
+
+
+### 判断用户是否授权
