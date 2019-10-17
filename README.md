@@ -296,3 +296,16 @@ ongetUserInfo(event) {
   }
 }
 ```
+
+
+
+### 原生组件
+textarea  video  map  ~~~
+在小程序中
+  - 原生组件层级最高，无论把其他元素的z-index设置多高，都覆盖不了原生组件
+  - 原生组件，不能使用在<swiper>等容器中
+
+原生组件绑定事件   不能使用 ：      bindinput="onInput"
+```
+<textarea bindinput="onInput" placeholder="分享新鲜事..."></textarea>
+```
