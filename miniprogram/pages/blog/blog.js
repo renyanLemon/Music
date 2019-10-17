@@ -12,8 +12,10 @@ Page({
       success: (res) => {
         if(res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
-            success(res) {
-              console.log(res)
+            success: (res) => {
+              this.onLoginSuccess({
+                detail: res.userInfo
+              })
             }
           })
         }else {
@@ -27,12 +29,15 @@ Page({
   },
 
   //授权成功
-  onLoginSuccess(userInfo) {
-
+  onLoginSuccess(event) {
+    const detail = event.detail
+    wx.navigateTo({
+      url: `../blog-edit/blog-edit?nickName=${detail.nickName}&avatarUrl=${detail.avatarUrl}`,
+    })
   },
 
   //授权失败
-  onLoginFail(userInfo) {
+  onLoginFail(event) {
     wx.showModal({
       title: '授权用户才能发布',
       content: '',
