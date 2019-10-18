@@ -1,11 +1,13 @@
 
-const MAX_WORDS_NUM = 140
+const MAX_WORDS_NUM = 140  //最大输入文字个数
+const MAX_IMG_NUM = 9   //最大上传图片数量
 
 Page({
 
   data: {
     wordNum: 0,  //输入的文字个数
     footerBottom: 0,  //footer 的 bottom
+    images: [],
   },
 
   onLoad: function (options) {
@@ -35,6 +37,38 @@ Page({
   onBlur(event) {
     this.setData({
       footerBottom: 0
+    })
+  },
+
+  //选择图片
+  onChooseImage() {
+    wx.chooseImage({
+      count: MAX_IMG_NUM - this.data.images.length,  //还能在上传几张图片
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        this.setData({
+          images: this.data.images.concat(res.tempFilePaths)
+        })
+      },
+    })
+  },
+
+  //删除图片
+  onDelImage(event) {
+    // splice 改变原有数组 并返回删除的元素
+    // this.data.images  已经被改变 
+    this.data.images.splice(event.target.dataset.index, 1)
+    this.setData({
+      images: this.data.images
+    })
+  },
+
+  //预览图片
+  onPreviewImage(event) {
+    wx.previewImage({
+      urls: this.data.images,
+      current: event.target.dataset.imgsrc
     })
   },
 
