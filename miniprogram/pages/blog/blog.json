@@ -4,5 +4,6 @@
     "m-login": "/components/login/login",
     "m-blog-card": "/components/blog-card/blog-card"
   },
-  "navigationBarTitleText": "发 现"
+  "navigationBarTitleText": "发 现",
+  "enablePullDownRefresh": true
 }

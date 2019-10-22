@@ -309,3 +309,9 @@ textarea  video  map  ~~~
 ```
 <textarea bindinput="onInput" placeholder="分享新鲜事..."></textarea>
 ```
+
+
+
+### 小程序中绑定事件的方式
+bind:tap   存在事件冒泡
+catch:tap  不存在事件冒泡
