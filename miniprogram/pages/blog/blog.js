@@ -11,18 +11,23 @@ Page({
   },
 
   //加载博客列表
-  _loadBlogList() {
+  _loadBlogList(start = 0) {
+    wx.showLoading({
+      title: '拼命加载中...',
+    })
     wx.cloud.callFunction({
       name: 'blog',
       data: {
+        start,
         $url: 'list',
-        start: 0,
         count: 10
       }
     }).then((res) => {
       this.setData({
         blogList:this.data.blogList.concat(res.result)
       })
+      wx.hideLoading()
+      wx.stopPullDownRefresh()
     })
   },
 
@@ -67,10 +72,28 @@ Page({
       modalShow: false
     }) 
   },
+
+  //触底加载
+  onReachBottom: function() {
+    this._loadBlogList(this.data.blogList.length)
+  },
+
+  //下拉刷新
+  onPullDownRefresh: function() {
+    this.setData({
+      blogList: []
+    })
+    this._loadBlogList(0)
+  },
   
-  /**
-   * 用户点击右上角分享
-   */
+  //评论页面
+  goComment(event) {
+    wx.navigateTo({
+      url: '../../pages/blog-comment/blog-comment?blogId=' + event.target.dataset.blogid,
+    })
+  },
+  
+  //用户点击右上角分享
   onShareAppMessage: function () {
 
   }
