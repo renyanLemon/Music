@@ -10,6 +10,16 @@
   </view>
 </view>
 
+<!-- 博客卡片 -->
+<view class="blog-list">
+  <block wx:for="{{blogList}}" wx:key="_id">
+    <view class="blog-panel">
+      <m-blog-card blog="{{item}}"/>
+    </view>
+  
+  </block>
+</view>
+
 <!-- 底部弹出层 -->
 <m-login modalShow="{{modalShow}}" bind:loginsuccess="onLoginSuccess" bind:loginfail="onLoginFail"></m-login>
 

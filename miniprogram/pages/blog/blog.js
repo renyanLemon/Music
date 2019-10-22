@@ -3,6 +3,27 @@ Page({
 
   data: {
     modalShow: false,  //底部弹出层是否显示
+    blogList: []
+  },
+
+  onLoad: function(options) {
+    this._loadBlogList()
+  },
+
+  //加载博客列表
+  _loadBlogList() {
+    wx.cloud.callFunction({
+      name: 'blog',
+      data: {
+        $url: 'list',
+        start: 0,
+        count: 10
+      }
+    }).then((res) => {
+      this.setData({
+        blogList:this.data.blogList.concat(res.result)
+      })
+    })
   },
 
   //发布
@@ -46,10 +67,6 @@ Page({
       modalShow: false
     }) 
   },
-  
-
-  
-
   
   /**
    * 用户点击右上角分享

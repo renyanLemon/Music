@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "m-search": "/components/search/search",
-    "m-login": "/components/login/login"
+    "m-login": "/components/login/login",
+    "m-blog-card": "/components/blog-card/blog-card"
   },
   "navigationBarTitleText": "发 现"
 }
