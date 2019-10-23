@@ -6,7 +6,7 @@
     <i class="iconfont icon-fabu"></i>
   </view>
   <view class="search-container">
-    <m-search />
+    <m-search bind:search="onSearch"/>
   </view>
 </view>
 
