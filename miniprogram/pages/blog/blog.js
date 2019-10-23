@@ -1,4 +1,6 @@
 
+let keyword = ''
+
 Page({
 
   data: {
@@ -18,6 +20,7 @@ Page({
     wx.cloud.callFunction({
       name: 'blog',
       data: {
+        keyword,
         start,
         $url: 'list',
         count: 10
@@ -96,5 +99,14 @@ Page({
   //用户点击右上角分享
   onShareAppMessage: function () {
 
+  },
+
+  //搜索
+  onSearch(event) {
+    this.setData({
+      blogList: []
+    })
+    keyword = event.detail.keyword
+    this._loadBlogList(0)
   }
 })
