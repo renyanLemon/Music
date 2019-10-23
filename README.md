@@ -315,3 +315,17 @@ textarea  video  map  ~~~
 ### 小程序中绑定事件的方式
 bind:tap   存在事件冒泡
 catch:tap  不存在事件冒泡
+
+
+
+### setData 回调 第二个参数在第一个完成后执行
+
+```
+      this.setData({
+        loginShow: false
+      }, ()=>{
+        this.setData({
+          loginShow: true
+        })
+      })
+```

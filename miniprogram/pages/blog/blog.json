@@ -2,7 +2,8 @@
   "usingComponents": {
     "m-search": "/components/search/search",
     "m-login": "/components/login/login",
-    "m-blog-card": "/components/blog-card/blog-card"
+    "m-blog-card": "/components/blog-card/blog-card",
+    "m-blog-ctrl": "/components/blog-ctrl/blog-ctrl"
   },
   "navigationBarTitleText": "发 现",
   "enablePullDownRefresh": true
