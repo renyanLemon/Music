@@ -1,10 +1,11 @@
 
 let userInfo = {}
+const db = wx.cloud.database()
 
 Component({
   
   properties: {
-
+    blogId: String
   },
 
   data: {
@@ -38,7 +39,8 @@ Component({
     },
 
     //授权成功
-    loginsuccess() {
+    onLoginsuccess(event) {
+      userInfo = event.detail
       this.setData({
         loginShow: false,
       }, () => {
@@ -54,6 +56,48 @@ Component({
         title: '授权用户才能进行评价',
         content: '',
       })
+    },
+
+    onInput(event) {
+      this.setData({
+        content: event.detail.value
+      })
+    },
+
+    //发送
+    onSend() {
+      //插入数据库
+        let content = this.data.content
+        if(content.trim() == '') {
+          wx.showModal({
+            title: '评论内容不能为空',
+            content: '',
+          })
+        }else {
+          wx.showLoading({
+            title: '发布中...',
+            mask: true
+          })
+          db.collection('blog-comment').add({
+            data: {
+              content,
+              createTime: db.serverDate(),
+              blogId: this.properties.blogId,
+              nickName: userInfo.nickName,
+              avatarUrl: userInfo.avatarUr
+            }
+          }).then((res) => {
+            wx.hideLoading()
+            wx.showToast({
+              title: '评论成功',
+            })
+            this.setData({
+              modalShow: false,
+              content: ''
+            })
+          })
+        }
+      //推送模版消息
     }
   }
 })
