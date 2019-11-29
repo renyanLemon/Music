@@ -329,3 +329,29 @@ catch:tap  不存在事件冒泡
         })
       })
 ```
+
+
+
+
+### 云调用实现模版消息推送
+- 必须使用form表单    report-submit="true"
+
+```
+<form slot="modal-content" report-submit="true" bind:submit="onSend">
+  <textarea name="content" bindinput="onInput" class="comment-content" placeholder="写评论" value="{{content}}" fixed="true"></textarea>
+  <button class="send" form-type="submit">发送</button>
+</form>
+```
+
+- 新建云函数
+
+- 配置 config.json
+```
+{
+  "permissions": {
+    "openapi": [
+      "templateMessage.send"
+    ]
+  }
+}
+```
