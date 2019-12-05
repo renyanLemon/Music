@@ -5,7 +5,8 @@ const db = wx.cloud.database()
 Component({
   
   properties: {
-    blogId: String
+    blogId: String,
+    blog: Object
   },
 
   data: {

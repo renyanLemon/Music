@@ -1,4 +1,4 @@
-// compoents/musiclist/musiclist.js
+
 Component({
   /**  组件的属性列表,传过来的数据,需要指定类型  */
   properties: {
@@ -9,10 +9,6 @@ Component({
 
    /**  数据监听器  */
    observers: {
-    //  监听对象
-     musiclist(val) {
-      //  console.log(val)
-     },
     //  监听对象内某个属性
      ['musiclist.playCount'](count) {
        this._tranNumber(count, 2)

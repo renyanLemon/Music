@@ -28,7 +28,7 @@ Component({
         playingId: dataset.musicid
       })
       wx.navigateTo({
-        url: `../../pages/player/player?musicid=${dataset.musicid}&index=${dataset.index}`,
+        url: `/pages/player/player?musicid=${dataset.musicid}&index=${dataset.index}`,
       })
     }
   }
