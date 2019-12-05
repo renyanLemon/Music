@@ -6,13 +6,15 @@
     "pages/songslist/songslist",
     "pages/player/player",
     "pages/blog-edit/blog-edit",
-    "pages/blog-comment/blog-comment"
+    "pages/blog-comment/blog-comment",
+    "pages/profile-playhistory/profile-playhistory",
+    "pages/profile-bloghistory/profile-bloghistory"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#d43c33",
-    "navigationBarTitleText": "音 乐",
+    "navigationBarTitleText": "萌宠日志",
     "navigationBarTextStyle": "white"
   },
   "requiredBackgroundModes": [
@@ -23,7 +25,7 @@
     "list": [
       {
         "pagePath": "pages/playlist/playlist",
-        "text": "音乐",
+        "text": "日常",
         "iconPath": "images/music.png",
         "selectedIconPath": "images/music2.png"
       },

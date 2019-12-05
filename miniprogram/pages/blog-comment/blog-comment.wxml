@@ -27,5 +27,5 @@
 </scroll-view>
 
 <view class="blog-ctrl">
-  <m-blog-ctrl blogId="{{blog._id}}" iconfont="iconfont" icon-pinglun="icon-pinglun" icon-fenxiang="icon-fenxiang" bind:refreshCommentList="_getBlogDetail" />
+  <m-blog-ctrl blogId="{{blog._id}}" bind:refreshCommentList="_getBlogDetail" />
 </view>

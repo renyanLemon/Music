@@ -1,25 +1,29 @@
 
+const MAX_LIMIT = 10
 Page({
 
   data: {
-
+    blogList: []
   },
 
   onLoad: function (options) {
-
+    this._getListByCloudFn()
   },
 
-  onTapQrCode() {
+  _getListByCloudFn() {
     wx.showLoading({
-      title: '生成中',
+      title: '加载中',
     })
     wx.cloud.callFunction({
-      name: 'getQrCode'
+      name: 'blog',
+      data: {
+        $url: 'getListByOpenid',
+        start: this.data.blogList.length,
+        count: MAX_LIMIT
+      }
     }).then((res)=>{
-      const fileId = res.result
-      wx.previewImage({
-        urls: [fileId],
-        current: fileId
+      this.setData({
+        blogList: this.data.blogList.concat(res.result)
       })
       wx.hideLoading()
     })
@@ -64,7 +68,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this._getListByCloudFn()
   },
 
   /**

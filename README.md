@@ -355,3 +355,161 @@ catch:tap  不存在事件冒泡
   }
 }
 ```
+
+
+### 分享
+必须用 button   open-type="share"
+```
+<button open-type="share" data-blogid="{{blogId}}" data-blog="{{blog}}" class="share-btn" hover-class="share-hover">
+    <i class="iconfont icon-icon-test1 icon"></i>
+    <text>分享</text>
+</button>
+```
+
+
+### 设置背景图片
+1. 不能用项目中的图片，使用相对路径设置
+   可以使用网络图片
+2. 可以使用base64格式图片
+
+
+
+### 小程序的本地存储
+- 最近播放 功能  使用本地存储
+- ../../pages/player/player?musicid={dataset.musicid}&index={dataset.index}
+
+
+
+### 小程序码
+配置权限
+config.json
+```
+{
+  "permissions": {
+    "openapi": [
+      "wxacode.getUnlimited"
+    ]
+  }
+}
+```
+
+小程序上线后，如何得到用户是扫描谁分享得二维码进入页面
+- 在对应页面加载函数中  options.scene
+
+
+
+### 小程序渲染与逻辑层交互原理
+- 小程序无DOM操作
+- 不能频繁setData
+- 避免使用 :active 伪类来实现点击态
+- 滚动区域可开启惯性滚动以增强体验
+  - 安卓自带惯性滚动
+  - ios
+    ```
+    -webkit-overflow-scrolling: touch
+    ```
+
+ ![image](./img/1.png)
+
+
+
+### 小程序更新机制
+app.js中检查更新
+```
+checkUpdate() {
+    const updateManager = wx.getUpdateManager()
+    //检测版本更新
+    updateManager.onCheckForUpdate((res)=>{
+      if(res.hasUpdate) {
+        updateManager.onUpdateReady(()=>{
+          console.log(123456)
+          wx.showModal({
+            title: '更新提示',
+            content: '新版本已经准备好，是否重启应用',
+            success(res) {
+              if (res.confirm) {
+                updateManager.applyUpdate()
+              }
+            }
+          })
+        })
+      }
+    })
+  }
+```
+
+
+
+### Audits
+- 手动：小程序体验评分
+- 自动： 详情-本地设置-自动运行体验评分
+
+
+
+### setData
+- setData是一个同步过程，其回调是一个异步过程
+  - testData 初始值设置为0
+  ```
+  console.log('testData start' + this.data.testData)
+  this.setData({
+    testData: 1
+    },()=>{
+      console.log('回调执行')
+      })
+  console.log('testData end' + this.data.testData)
+  ```
+  打印结果：
+  ```
+  testData start 0
+  testData end 1
+  回调执行
+
+  ```
+- 避免setData数据过大（不要超过1M）
+
+- 避免setdata的调用过于频繁
+
+- 避免未绑定的wxml的变量传入setData（与页面显示没有关系的变量，不要存在setData）
+
+- setData 一个对象中的单独值
+```
+data:{
+  testObj: {
+    name: 'jack',
+    age: 33
+  }
+}
+```
+```
+this.setData({
+  ['testObj.age']: 34,
+  ['testObj.city']: Beijing
+  })
+```
+
+
+### 场景值scene的作用与应用场景
+
+
+
+### 页面收录sitemap.json的作用与使用方法
+
+
+### 小程序上线审核
+
+
+
+### access_token的缓存与更新
+
+npm install request
+
+npm install request-promise
+
+### node获取文件的绝对路径
+```
+const path = require('path')
+const fileName = path.resolve(__dirname, '文件名')
+```
+
+
+### koa-router

@@ -22,7 +22,6 @@ Page({
   },
 
   onLoad: function (options) {
-    console.log('options', options)
     songslist = wx.getStorageSync('songslist')
     nowPlayingIndex = options.index
     this._loadSongsDetail(options.musicid)
@@ -83,6 +82,8 @@ Page({
         backgroundAudioManager.coverImgUrl = songs.al.picUrl
         backgroundAudioManager.singer = songs.ar[0].name
         backgroundAudioManager.epname = songs.al.name
+        //保存播放历史
+        this.savePlayHistory()
       }
 
       this.setData({
@@ -165,8 +166,27 @@ Page({
     this.setData({
       isPlaying: false
     })
-  }
+  },
 
-
-  
+  //保存播放历史
+  savePlayHistory() {
+    //当前正在播放的歌曲
+    const music = songslist[nowPlayingIndex]
+    const openid = app.globalData.openid
+    const history = wx.getStorageSync(openid)
+    let bHave = false
+    for(let i=0; i<history.length; i++) {
+      if (history[i].id == music.id) {
+        bHave = true
+        break
+      }
+    }
+    if (!bHave) {
+      history.unshift(music)
+      wx.setStorage({
+        key: openid,
+        data: history,
+      })
+    }
+  } 
 })
